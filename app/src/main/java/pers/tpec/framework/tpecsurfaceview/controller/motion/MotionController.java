@@ -1,6 +1,7 @@
-package pers.tpec.framework.tpecsurfaceview.motion;
+package pers.tpec.framework.tpecsurfaceview.controller.motion;
 
 import android.view.MotionEvent;
+import android.view.View;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +17,7 @@ public class MotionController implements Controller {
     private MotionCallback callback;
     private Set<Integer> pointID;
 
-    private boolean _click,_scale;
+    protected boolean _click,_scale;
     private float x0,y0,x1,y1,xd,yd;
 
     public MotionController(final MotionBorder border){
@@ -32,6 +33,26 @@ public class MotionController implements Controller {
 
     public MotionController setCallback(final MotionCallback callback){
         this.callback=callback;
+        return this;
+    }
+
+    public MotionController setClickCallback(final ClickCallback clickCallback){
+        this.callback=new MotionCallback() {
+            @Override
+            public boolean onClick() {
+                return clickCallback.onClick();
+            }
+
+            @Override
+            public boolean onDrag(float dx, float dy) {
+                return false;
+            }
+
+            @Override
+            public boolean onScale(float mx, float my, float scale) {
+                return false;
+            }
+        };
         return this;
     }
 

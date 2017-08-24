@@ -6,9 +6,9 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 
 import pers.tpec.framework.tpecsurfaceview.controller.Controller;
-import pers.tpec.framework.tpecsurfaceview.motion.MotionBorder;
-import pers.tpec.framework.tpecsurfaceview.motion.MotionCallback;
-import pers.tpec.framework.tpecsurfaceview.motion.MotionController;
+import pers.tpec.framework.tpecsurfaceview.controller.motion.MotionBorder;
+import pers.tpec.framework.tpecsurfaceview.controller.motion.MotionCallback;
+import pers.tpec.framework.tpecsurfaceview.controller.motion.MotionController;
 import pers.tpec.framework.tpecsurfaceview.scene.Scene;
 import pers.tpec.framework.tpecsurfaceview.service.Service;
 

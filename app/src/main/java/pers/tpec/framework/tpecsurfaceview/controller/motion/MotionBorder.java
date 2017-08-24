@@ -1,4 +1,4 @@
-package pers.tpec.framework.tpecsurfaceview.motion;
+package pers.tpec.framework.tpecsurfaceview.controller.motion;
 
 /**
  * Created by Tony on 2017/8/10.
