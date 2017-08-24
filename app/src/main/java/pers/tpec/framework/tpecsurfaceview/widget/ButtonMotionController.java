@@ -19,6 +19,11 @@ public class ButtonMotionController extends MotionController {
 
     public void setEnabled(final boolean enabled){
         this.enabled=enabled;
+        if(!enabled){
+            super._click=false;
+            super._scale=false;
+            super.pointID.clear();
+        }
     }
 
     public boolean isClickDown(){

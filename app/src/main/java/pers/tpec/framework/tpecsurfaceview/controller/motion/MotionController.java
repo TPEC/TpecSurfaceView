@@ -15,7 +15,7 @@ import pers.tpec.framework.tpecsurfaceview.controller.Controller;
 public class MotionController implements Controller {
     private MotionBorder border;
     private MotionCallback callback;
-    private Set<Integer> pointID;
+    protected Set<Integer> pointID;
 
     protected boolean _click,_scale;
     private float x0,y0,x1,y1,xd,yd;
