@@ -28,12 +28,30 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-task makeJar(type: Copy) {
-    delete 'build/libs/test.jar'
-    from('build/intermediates/bundles/release/')
-    into('build/libs/')
-    include('classes.jar')
-    rename ('classes.jar', 'test.jar')
+//task makeJar(type: Copy) {
+//    delete 'build/libs/test.jar'
+//    from('build/intermediates/bundles/release/')
+//    into('build/libs/')
+//    include('classes.jar')
+//    rename ('classes.jar', 'test.jar')
+//}
+//
+//makeJar.dependsOn(build)
+
+def SDK_BASENAME = "TpecSurfaceView";
+def SDK_VERSION = "_V1.0";
+def sdkDestinationPath = "build";
+def zipFile = file('build/intermediates/bundles/debug/classes.jar')
+
+task deleteBuild(type: Delete) {
+    delete sdkDestinationPath + SDK_BASENAME + SDK_VERSION + ".jar"
 }
 
-makeJar.dependsOn(build)
+task makeJar(type: Jar) {
+    from zipTree(zipFile)
+    from fileTree(dir: 'src/main',includes: ['assets/**'])
+    baseName = SDK_BASENAME + SDK_VERSION
+    destinationDir = file(sdkDestinationPath)
+}
+
+makeJar.dependsOn(deleteBuild, build)

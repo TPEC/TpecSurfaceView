@@ -1,11 +1,17 @@
 package examples.gettingstart;
 
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 
+import pers.tpec.framework.tpecsurfaceview.R;
 import pers.tpec.framework.tpecsurfaceview.TpecSurfaceView;
+import pers.tpec.framework.tpecsurfaceview.scene.SceneFactory;
 
 public class MainActivity extends AppCompatActivity {
     //The target size of TpecSurfaceView

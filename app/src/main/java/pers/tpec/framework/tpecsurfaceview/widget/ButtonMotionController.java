@@ -2,7 +2,9 @@ package pers.tpec.framework.tpecsurfaceview.widget;
 
 import android.view.MotionEvent;
 
+import pers.tpec.framework.tpecsurfaceview.controller.motion.ClickCallback;
 import pers.tpec.framework.tpecsurfaceview.controller.motion.MotionBorder;
+import pers.tpec.framework.tpecsurfaceview.controller.motion.MotionCallback;
 import pers.tpec.framework.tpecsurfaceview.controller.motion.MotionController;
 
 /**
@@ -10,7 +12,7 @@ import pers.tpec.framework.tpecsurfaceview.controller.motion.MotionController;
  */
 
 public class ButtonMotionController extends MotionController {
-    private boolean enabled;
+    protected boolean enabled;
 
     public ButtonMotionController(MotionBorder border) {
         super(border);
@@ -28,6 +30,24 @@ public class ButtonMotionController extends MotionController {
 
     public boolean isClickDown(){
         return super._click;
+    }
+
+    @Override
+    public ButtonMotionController setBorder(MotionBorder border) {
+        super.setBorder(border);
+        return this;
+    }
+
+    @Override
+    public ButtonMotionController setCallback(MotionCallback callback) {
+        super.setCallback(callback);
+        return this;
+    }
+
+    @Override
+    public ButtonMotionController setClickCallback(ClickCallback clickCallback) {
+        super.setClickCallback(clickCallback);
+        return this;
     }
 
     @Override
