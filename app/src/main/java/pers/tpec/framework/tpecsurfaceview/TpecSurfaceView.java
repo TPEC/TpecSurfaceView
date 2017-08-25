@@ -3,9 +3,13 @@ package pers.tpec.framework.tpecsurfaceview;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import pers.tpec.framework.tpecsurfaceview.controller.Controller;
 import pers.tpec.framework.tpecsurfaceview.scene.Scene;
@@ -28,11 +32,13 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     private Paint paintBlack;
 
-    private Scene scene;
-    private Service service;
-    private Controller controller;
+    private Scene scene=null;
+    private Service service=null,serviceBack=null;
+    private Controller controller=null;
 
     private long targetInterval=16666667;
+
+    private Lock controllerLock=new ReentrantLock();
 
     /**
      * @param context
@@ -53,6 +59,7 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         paintBlack = new Paint();
     }
 
+    @Deprecated
     final public TpecSurfaceView setScene(final Scene scene) {
         this.scene = scene;
         return this;
@@ -64,7 +71,12 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     final public TpecSurfaceView setController(final Controller controller){
-        this.controller=controller;
+        controllerLock.lock();
+        try {
+            this.controller = controller;
+        }finally {
+            controllerLock.unlock();
+        }
         return this;
     }
 
@@ -125,10 +137,8 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
-    private void logic() {
-        if (service != null) {
-            service.logic();
-        }
+    public void switchService(@NonNull final Service newService){
+        this.serviceBack=newService;
     }
 
     @Override
@@ -154,7 +164,12 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     final public boolean onTouchEvent(MotionEvent event) {
         if (controller != null) {
             event.setLocation((event.getX()-scaleTranslateX)/scaleWidth,(event.getY()-scaleTranslateY)/scaleHeight);
-            return controller.onTouch(event);
+            controllerLock.lock();
+            try {
+                return controller.onTouch(event);
+            }finally {
+                controllerLock.unlock();
+            }
         } else {
             return false;
         }
@@ -165,7 +180,13 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         long startTime=System.nanoTime()-targetInterval;
         while (threadFlag) {
             while (System.nanoTime()-startTime>=targetInterval){
-                logic();
+                if(serviceBack!=null){
+                    service=serviceBack;
+                    serviceBack=null;
+                }
+                if (service != null) {
+                    service.logic();
+                }
                 startTime+=targetInterval;
             }
             draw();
