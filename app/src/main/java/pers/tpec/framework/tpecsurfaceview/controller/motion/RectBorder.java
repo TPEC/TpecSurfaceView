@@ -19,6 +19,14 @@ public class RectBorder implements MotionBorder {
         this.rect=rect;
     }
 
+    public RectBorder(final int left,final int top,final int right,final int bottom){
+        this.rect=new Rect(left, top, right, bottom);
+    }
+
+    public RectBorder(final float left,final float top,final float right,final float bottom){
+        this.rectF=new RectF(left, top, right, bottom);
+    }
+
     @Override
     public boolean contains(float x, float y) {
         if(rectF!=null)

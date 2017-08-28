@@ -47,4 +47,4 @@ public class MainActivity extends AppCompatActivity {
 
 ```
 
-[For more details](https://github.com/TPEC/TpecSurfaceView/tree/master/app/src/main/java/examples)
+## [More examples](https://github.com/TPEC/TpecSurfaceView/tree/master/examples/src/main/java/pers/tpec/framework/examples)
