@@ -12,6 +12,7 @@ import pers.tpec.framework.tpecsurfaceview.scene.Scene;
 import pers.tpec.framework.tpecsurfaceview.service.Service;
 import pers.tpec.framework.tpecsurfaceview.widget.ObjectPool;
 import pers.tpec.framework.tpecsurfaceview.widget.particle.Particle;
+import pers.tpec.framework.tpecsurfaceview.widget.particle.ParticlePool;
 
 /**
  * Created by Tony on 2017/8/17.
@@ -24,7 +25,10 @@ public class MainScene extends Scene implements Service, Controller {
     private ObjectPool op=new ObjectPool();
 
     public MainScene(){
-        op.add(this,new Particle().init(128, 640, 360, 120, 5, Color.WHITE, 7.5f, 0, 0.1f).play());
+        ParticlePool pp=new ParticlePool();
+        pp.add(new Particle().init(128, 640, 360, 120, 5, Color.WHITE, 7.5f, 0, 0.1f).play());
+        op.add(this,pp);
+        op.switchScene(this);
     }
 
     @Override

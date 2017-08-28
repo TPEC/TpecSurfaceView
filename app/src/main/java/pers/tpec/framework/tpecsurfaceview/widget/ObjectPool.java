@@ -36,7 +36,7 @@ public class ObjectPool {
         return this;
     }
 
-    private void clearScene(@NonNull final Scene scene){
+    public void clearObjectInScene(@NonNull final Scene scene){
         synchronized (objects){
             objects.put(scene,null);
         }
@@ -53,9 +53,6 @@ public class ObjectPool {
     }
 
     public void switchScene(@NonNull final Scene scene){
-        if (this.scene!=null){
-            clearScene(this.scene);
-        }
         this.scene = scene;
         synchronized (objects) {
             nowList=objects.get(scene);
