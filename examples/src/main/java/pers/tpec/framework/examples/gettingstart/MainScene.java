@@ -16,7 +16,7 @@ import pers.tpec.framework.tpecsurfaceview.service.Service;
  * draw a rectangle
  */
 
-public class MainScene implements Scene,Service,Controller {
+public class MainScene extends Scene implements Service,Controller {
     private Paint paint;
     private Rect rect;
 

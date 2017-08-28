@@ -9,11 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import pers.tpec.framework.tpecsurfaceview.widget.ObjectInScene;
+
 /**
  * Created by Tony on 2017/8/28.
  */
 
-public class Particle {
+public class Particle extends ObjectInScene {
     private static final int RESIZE_LIFETIME = 30;
 
     private final List<Unit> units = new ArrayList<>();
@@ -56,8 +58,9 @@ public class Particle {
         return this;
     }
 
-    public void play() {
+    public Particle play() {
         running = true;
+        return this;
     }
 
     public void pause() {
@@ -72,6 +75,7 @@ public class Particle {
         return this;
     }
 
+    @Override
     public void logic() {
         if (running) {
             synchronized (units) {
@@ -102,6 +106,7 @@ public class Particle {
         return running;
     }
 
+    @Override
     public void draw(Canvas canvas) {
         synchronized (units) {
             for (Unit u : units) {

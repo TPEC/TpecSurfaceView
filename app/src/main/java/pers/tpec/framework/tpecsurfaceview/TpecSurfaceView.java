@@ -60,7 +60,11 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     final public TpecSurfaceView setScene(final Scene scene) {
+        if(this.scene!=null){
+            this.scene.setVisible(false);
+        }
         this.scene = scene;
+        this.scene.setVisible(true);
         return this;
     }
 

@@ -2,10 +2,24 @@ package pers.tpec.framework.tpecsurfaceview.scene;
 
 import android.graphics.Canvas;
 
-public interface Scene {
-    void draw(final Canvas canvas);
+public abstract class Scene {
+    private boolean visible=false;
 
-    void onPause();
+    public abstract void draw(final Canvas canvas);
 
-    void onResume();
+    public final boolean isVisible(){
+        return visible;
+    }
+
+    public final void setVisible(final boolean visible){
+        this.visible=visible;
+    }
+
+    public void onPause(){
+
+    }
+
+    public void onResume(){
+
+    }
 }

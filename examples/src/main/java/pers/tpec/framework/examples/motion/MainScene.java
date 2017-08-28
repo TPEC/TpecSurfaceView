@@ -19,7 +19,7 @@ import pers.tpec.framework.tpecsurfaceview.service.Service;
  * click callback
  */
 
-public class MainScene implements Scene,Service,Controller,MotionBorder {
+public class MainScene extends Scene implements Service,Controller,MotionBorder {
     private Paint paint;
     private Rect rect;
     private MotionController mc;

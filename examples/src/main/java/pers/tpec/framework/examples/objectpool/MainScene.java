@@ -1,4 +1,4 @@
-package pers.tpec.framework.examples.particles;
+package pers.tpec.framework.examples.objectpool;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,6 +10,7 @@ import pers.tpec.framework.tpecsurfaceview.controller.motion.MotionController;
 import pers.tpec.framework.tpecsurfaceview.controller.motion.RectBorder;
 import pers.tpec.framework.tpecsurfaceview.scene.Scene;
 import pers.tpec.framework.tpecsurfaceview.service.Service;
+import pers.tpec.framework.tpecsurfaceview.widget.ObjectPool;
 import pers.tpec.framework.tpecsurfaceview.widget.particle.Particle;
 
 /**
@@ -20,19 +21,15 @@ import pers.tpec.framework.tpecsurfaceview.widget.particle.Particle;
  */
 
 public class MainScene extends Scene implements Service, Controller {
-    private Particle particle = new Particle();
-    private MotionController mo = new MotionController(new RectBorder(0, 0, 1280, 720)).setClickCallback(new ClickCallback() {
-        @Override
-        public boolean onClick() {
-            particle.init(128, 640, 360, 120, 5, Color.WHITE, 7.5f, 0, 0.1f);
-            particle.play();
-            return true;
-        }
-    });
+    private ObjectPool op=new ObjectPool();
+
+    public MainScene(){
+        op.add(this,new Particle().init(128, 640, 360, 120, 5, Color.WHITE, 7.5f, 0, 0.1f).play());
+    }
 
     @Override
     public void draw(Canvas canvas) {
-        particle.draw(canvas);
+        op.draw(canvas);
     }
 
     @Override
@@ -47,11 +44,11 @@ public class MainScene extends Scene implements Service, Controller {
 
     @Override
     public void logic() {
-        particle.logic();
+        op.logic();
     }
 
     @Override
     public boolean onTouch(MotionEvent event) {
-        return mo.onTouch(event);
+        return op.onTouch(event);
     }
 }
