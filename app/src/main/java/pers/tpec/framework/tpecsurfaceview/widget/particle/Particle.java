@@ -22,7 +22,7 @@ public class Particle {
 
     private boolean running;
 
-    public Particle(){
+    public Particle() {
         this(10f);
     }
 
@@ -31,13 +31,13 @@ public class Particle {
         paint.setAntiAlias(true);
         paint.setDither(true);
         paint.setStyle(Paint.Style.FILL);
-        paint.setMaskFilter(new BlurMaskFilter(blurSize,BlurMaskFilter.Blur.SOLID));
+        paint.setMaskFilter(new BlurMaskFilter(blurSize, BlurMaskFilter.Blur.SOLID));
         ax = 0;
         ay = 0;
-        running=false;
+        running = false;
     }
 
-    public Particle init(final int amount, final float x,final float y, final int life, final float radius, final int color, final float v, final float ax, final float ay) {
+    public Particle init(final int amount, final float x, final float y, final int life, final float radius, final int color, final float v, final float ax, final float ay) {
         paint.setColor(color);
         this.ax = ax;
         this.ay = ay;
@@ -45,35 +45,35 @@ public class Particle {
         synchronized (units) {
             units.clear();
             for (int i = 0; i < amount; i++) {
-                int life_ =(int)((float)life*(rnd.nextFloat()*0.45+0.8));
-                float a= (float) (rnd.nextFloat()*2*Math.PI);
-                float vx= (float) (v*Math.cos(a));
-                float vy= (float) (v*Math.sin(a));
-                units.add(new Unit(life_, radius,x,y,vx,vy));
+                int life_ = (int) ((float) life * (rnd.nextFloat() * 0.45 + 0.8));
+                float a = (float) (rnd.nextFloat() * 2 * Math.PI);
+                float vx = (float) (v * Math.cos(a));
+                float vy = (float) (v * Math.sin(a));
+                units.add(new Unit(life_, radius, x, y, vx, vy));
             }
         }
-        running=false;
+        running = false;
         return this;
     }
 
-    public void play(){
-        running=true;
+    public void play() {
+        running = true;
     }
 
-    public void pause(){
-        running=false;
+    public void pause() {
+        running = false;
     }
 
     @Deprecated
-    public Particle addUnit(@NonNull Unit unit){
-        synchronized (units){
+    public Particle addUnit(@NonNull Unit unit) {
+        synchronized (units) {
             units.add(unit);
         }
         return this;
     }
 
     public void logic() {
-        if(running) {
+        if (running) {
             synchronized (units) {
                 for (int i = 0; i < units.size(); i++) {
                     Unit u = units.get(i);
@@ -81,8 +81,8 @@ public class Particle {
                     if (u.life == 0) {
                         units.remove(i);
                         i--;
-                        if(units.size()==0){
-                            running=false;
+                        if (units.size() == 0) {
+                            running = false;
                         }
                     } else {
                         if (u.life < RESIZE_LIFETIME) {
@@ -98,7 +98,7 @@ public class Particle {
         }
     }
 
-    public boolean isRunning(){
+    public boolean isRunning() {
         return running;
     }
 
