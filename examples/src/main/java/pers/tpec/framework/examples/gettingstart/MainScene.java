@@ -1,4 +1,4 @@
-package examples.gettingstart;
+package pers.tpec.framework.examples.gettingstart;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

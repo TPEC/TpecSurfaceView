@@ -39,7 +39,7 @@ dependencies {
 //makeJar.dependsOn(build)
 
 def SDK_BASENAME = "TpecSurfaceView";
-def SDK_VERSION = "_V1.0";
+def SDK_VERSION = "_1.0.1";
 def sdkDestinationPath = "build";
 def zipFile = file('build/intermediates/bundles/debug/classes.jar')
 

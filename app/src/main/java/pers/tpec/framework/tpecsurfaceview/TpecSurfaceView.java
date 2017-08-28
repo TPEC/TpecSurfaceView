@@ -32,13 +32,13 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     private Paint paintBlack;
 
-    private Scene scene=null;
-    private Service service=null,serviceBack=null;
-    private Controller controller=null;
+    private Scene scene = null;
+    private Service service = null, serviceBack = null;
+    private Controller controller = null;
 
-    private long targetInterval=16666667;
+    private long targetInterval = 16666667;
 
-    private Lock controllerLock=new ReentrantLock();
+    private Lock controllerLock = new ReentrantLock();
 
     /**
      * @param context
@@ -59,22 +59,22 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         paintBlack = new Paint();
     }
 
-    @Deprecated
     final public TpecSurfaceView setScene(final Scene scene) {
         this.scene = scene;
         return this;
     }
 
-    final public TpecSurfaceView setService(final Service service){
+    @Deprecated
+    final public TpecSurfaceView setService(final Service service) {
         this.service = service;
         return this;
     }
 
-    final public TpecSurfaceView setController(final Controller controller){
+    final public TpecSurfaceView setController(final Controller controller) {
         controllerLock.lock();
         try {
             this.controller = controller;
-        }finally {
+        } finally {
             controllerLock.unlock();
         }
         return this;
@@ -86,8 +86,8 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     }
 
     private void applyResolutionRatio() {
-        scaleTranslateX=0;
-        scaleTranslateY=0;
+        scaleTranslateX = 0;
+        scaleTranslateY = 0;
         if (scaleMod == SCALEMOD_NULL) {
             scaleWidth = 1f;
             scaleHeight = 1f;
@@ -120,11 +120,11 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                 }
 
                 canvas.restore();
-                if(scaleTranslateY>0) {
+                if (scaleTranslateY > 0) {
                     canvas.drawRect(0, 0, screenWidth, scaleTranslateY, paintBlack);
                     canvas.drawRect(0, screenHeight - scaleTranslateY, screenWidth, screenHeight, paintBlack);
                 }
-                if(scaleTranslateX>0) {
+                if (scaleTranslateX > 0) {
                     canvas.drawRect(0, 0, scaleTranslateX, screenHeight, paintBlack);
                     canvas.drawRect(screenWidth - scaleTranslateX, 0, screenWidth, screenHeight, paintBlack);
                 }
@@ -137,8 +137,8 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         }
     }
 
-    public void switchService(@NonNull final Service newService){
-        this.serviceBack=newService;
+    public void switchService(@NonNull final Service newService) {
+        this.serviceBack = newService;
     }
 
     @Override
@@ -163,11 +163,11 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
     @Override
     final public boolean onTouchEvent(MotionEvent event) {
         if (controller != null) {
-            event.setLocation((event.getX()-scaleTranslateX)/scaleWidth,(event.getY()-scaleTranslateY)/scaleHeight);
+            event.setLocation((event.getX() - scaleTranslateX) / scaleWidth, (event.getY() - scaleTranslateY) / scaleHeight);
             controllerLock.lock();
             try {
                 return controller.onTouch(event);
-            }finally {
+            } finally {
                 controllerLock.unlock();
             }
         } else {
@@ -177,30 +177,30 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
 
     @Override
     public void run() {
-        long startTime=System.nanoTime()-targetInterval;
+        long startTime = System.nanoTime() - targetInterval;
         while (threadFlag) {
-            while (System.nanoTime()-startTime>=targetInterval){
-                if(serviceBack!=null){
-                    service=serviceBack;
-                    serviceBack=null;
+            while (System.nanoTime() - startTime >= targetInterval) {
+                if (serviceBack != null) {
+                    service = serviceBack;
+                    serviceBack = null;
                 }
                 if (service != null) {
                     service.logic();
                 }
-                startTime+=targetInterval;
+                startTime += targetInterval;
             }
             draw();
         }
     }
 
-    public void onPause(){
-        if(scene!=null){
+    public void onPause() {
+        if (scene != null) {
             scene.onPause();
         }
     }
 
-    public void onResume(){
-        if(scene!=null){
+    public void onResume() {
+        if (scene != null) {
             scene.onResume();
         }
     }

@@ -1,4 +1,4 @@
-package examples.motion;
+package pers.tpec.framework.examples.motion;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
