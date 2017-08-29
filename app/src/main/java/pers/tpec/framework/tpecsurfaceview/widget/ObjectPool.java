@@ -18,8 +18,8 @@ import pers.tpec.framework.tpecsurfaceview.scene.Scene;
 
 public class ObjectPool {
     private final HashMap<Scene,List<ObjectInScene>> objects=new HashMap<>();
-    private Scene scene;
-    private List<ObjectInScene> nowList;
+    private Scene scene=null;
+    private List<ObjectInScene> nowList=new ArrayList<>();
 
     public ObjectPool add(@NonNull final Scene scene, @NonNull ObjectInScene... object){
         synchronized (objects){
@@ -52,17 +52,36 @@ public class ObjectPool {
         return this;
     }
 
+    /**
+     * Asynchronously switch the scene
+     * @param scene new Scene
+     */
     public void switchScene(@NonNull final Scene scene){
         this.scene = scene;
-        synchronized (objects) {
-            nowList=objects.get(scene);
-        }
+    }
+
+    /**
+     * Only for initialization
+     * @param scene
+     */
+    @Deprecated
+    public void setScene(@NonNull final Scene scene){
+        nowList=objects.get(scene);
         if(nowList==null){
             nowList=new ArrayList<>();
         }
     }
 
     public void logic(){
+        if(scene!=null){
+            synchronized (objects) {
+                nowList=objects.get(scene);
+            }
+            if(nowList==null){
+                nowList=new ArrayList<>();
+            }
+            scene=null;
+        }
         synchronized (objects) {
             for (ObjectInScene o : nowList) {
                 o.logic();

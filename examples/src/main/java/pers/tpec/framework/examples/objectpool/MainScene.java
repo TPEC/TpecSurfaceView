@@ -28,22 +28,12 @@ public class MainScene extends Scene implements Service, Controller {
         ParticlePool pp=new ParticlePool();
         pp.add(new Particle().init(128, 640, 360, 120, 5, Color.WHITE, 7.5f, 0, 0.1f).play());
         op.add(this,pp);
-        op.switchScene(this);
+        op.setScene(this);
     }
 
     @Override
     public void draw(Canvas canvas) {
         op.draw(canvas);
-    }
-
-    @Override
-    public void onPause() {
-
-    }
-
-    @Override
-    public void onResume() {
-
     }
 
     @Override

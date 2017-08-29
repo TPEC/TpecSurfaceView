@@ -18,6 +18,7 @@ public class Animation {
     private int index;
     private Action nowAct = null;
     private boolean running;
+    private int loop;
 
     public Animation() {
         nowAct = null;
@@ -46,7 +47,7 @@ public class Animation {
         nowAct=null;
     }
 
-    public void stop(){
+    public void pause(){
         running=false;
     }
 
@@ -59,7 +60,12 @@ public class Animation {
     }
 
     public void play() {
-        running = true;
+        play(0);
+    }
+
+    public void play(final int loop){
+        running=true;
+        this.loop=loop;
     }
 
     public void logic() {
@@ -76,7 +82,16 @@ public class Animation {
                         nowAct.init();
                         logic();
                     } else {
-                        running = false;
+                        if(loop==-1){
+                            replay();
+                            logic();
+                        }else if(loop>0){
+                            loop--;
+                            replay();
+                            logic();
+                        }else {
+                            running = false;
+                        }
                     }
                 }
             }

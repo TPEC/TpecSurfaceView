@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import pers.tpec.framework.tpecsurfaceview.widget.ObjectInScene;
@@ -16,13 +17,17 @@ public class ParticlePool extends ObjectInScene {
     private boolean autoRemove = true;
     private final List<Particle> particles = new ArrayList<>();
 
-    public ParticlePool add(@NonNull final Particle particle) {
+    public ParticlePool add(@NonNull final Particle... particle) {
         synchronized (particles) {
-            particles.add(particle);
+            Collections.addAll(particles,particle);
         }
         return this;
     }
 
+    /**
+     * Remove Particle when it is done.
+     * @param autoRemove
+     */
     public void setAutoRemove(boolean autoRemove) {
         this.autoRemove = autoRemove;
     }

@@ -52,16 +52,6 @@ public class MainScene extends Scene implements Service,Controller,MotionBorder 
     }
 
     @Override
-    public void onPause() {
-
-    }
-
-    @Override
-    public void onResume() {
-
-    }
-
-    @Override
     public void logic() {
 
     }

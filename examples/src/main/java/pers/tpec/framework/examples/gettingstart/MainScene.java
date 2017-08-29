@@ -31,16 +31,6 @@ public class MainScene extends Scene implements Service,Controller {
     }
 
     @Override
-    public void onPause() {
-
-    }
-
-    @Override
-    public void onResume() {
-
-    }
-
-    @Override
     public void logic() {
 
     }
