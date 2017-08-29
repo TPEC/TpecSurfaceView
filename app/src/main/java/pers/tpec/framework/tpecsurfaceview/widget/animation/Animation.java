@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import pers.tpec.framework.tpecsurfaceview.widget.ObjectInScene;
 import pers.tpec.framework.tpecsurfaceview.widget.animation.actions.ActionI;
 
 /**
  * Created by Tony on 2017/8/28.
  */
 
-public class Animation {
+public class Animation extends ObjectInScene{
     private ActionI object = null;
     private final List<Action> actions = new ArrayList<>();
     private int index;
@@ -23,6 +24,11 @@ public class Animation {
     public Animation() {
         nowAct = null;
         running = false;
+    }
+
+    public Animation(@NonNull final ActionI object){
+        this();
+        setObject(object);
     }
 
     public Animation setObject(@NonNull final ActionI object) {
@@ -68,6 +74,7 @@ public class Animation {
         this.loop=loop;
     }
 
+    @Override
     public void logic() {
         if (object != null && running) {
             if (nowAct != null) {
