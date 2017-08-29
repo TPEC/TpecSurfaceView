@@ -1,4 +1,4 @@
-package pers.tpec.framework.tpecsurfaceview.widget;
+package pers.tpec.framework.tpecsurfaceview.widget.button;
 
 import android.view.MotionEvent;
 
@@ -16,19 +16,19 @@ public class ButtonMotionController extends MotionController {
 
     public ButtonMotionController(MotionBorder border) {
         super(border);
-        enabled=true;
+        enabled = true;
     }
 
-    public void setEnabled(final boolean enabled){
-        this.enabled=enabled;
-        if(!enabled){
-            super._click=false;
-            super._scale=false;
+    public void setEnabled(final boolean enabled) {
+        this.enabled = enabled;
+        if (!enabled) {
+            super._click = false;
+            super._scale = false;
             super.pointID.clear();
         }
     }
 
-    public boolean isClickDown(){
+    public boolean isClickDown() {
         return super._click;
     }
 
@@ -52,7 +52,7 @@ public class ButtonMotionController extends MotionController {
 
     @Override
     public boolean onTouch(MotionEvent event) {
-        if(enabled)
+        if (enabled)
             return super.onTouch(event);
         return false;
     }

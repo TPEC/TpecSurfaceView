@@ -13,7 +13,7 @@ import pers.tpec.framework.tpecsurfaceview.widget.animation.actions.ActionI;
  * Created by Tony on 2017/8/28.
  */
 
-public class Animation extends ObjectInScene{
+public class Animation extends ObjectInScene {
     private ActionI object = null;
     private final List<Action> actions = new ArrayList<>();
     private int index;
@@ -26,7 +26,7 @@ public class Animation extends ObjectInScene{
         running = false;
     }
 
-    public Animation(@NonNull final ActionI object){
+    public Animation(@NonNull final ActionI object) {
         this();
         setObject(object);
     }
@@ -43,18 +43,18 @@ public class Animation extends ObjectInScene{
         return this;
     }
 
-    public void replay(){
+    public void replay() {
         replay(0);
     }
 
-    public void replay(final int index){
-        this.index=index;
-        running=true;
-        nowAct=null;
+    public void replay(final int index) {
+        this.index = index;
+        running = true;
+        nowAct = null;
     }
 
-    public void pause(){
-        running=false;
+    public void pause() {
+        running = false;
     }
 
     public Animation clearActions() {
@@ -69,9 +69,9 @@ public class Animation extends ObjectInScene{
         play(0);
     }
 
-    public void play(final int loop){
-        running=true;
-        this.loop=loop;
+    public void play(final int loop) {
+        running = true;
+        this.loop = loop;
     }
 
     @Override
@@ -89,14 +89,14 @@ public class Animation extends ObjectInScene{
                         nowAct.init();
                         logic();
                     } else {
-                        if(loop==-1){
+                        if (loop == -1) {
                             replay();
                             logic();
-                        }else if(loop>0){
+                        } else if (loop > 0) {
                             loop--;
                             replay();
                             logic();
-                        }else {
+                        } else {
                             running = false;
                         }
                     }

@@ -10,16 +10,6 @@ import pers.tpec.framework.tpecsurfaceview.scene.Scene;
  */
 
 public abstract class ObjectInScene {
-    protected Scene scene=null;
-
-    public void bind(final Scene scene){
-        this.scene=scene;
-    }
-
-    protected final boolean isValid(){
-        return scene!=null && scene.isVisible();
-    }
-
     public void logic(){
 
     }

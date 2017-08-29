@@ -2,7 +2,6 @@ package pers.tpec.framework.tpecsurfaceview.widget;
 
 import android.graphics.Canvas;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -17,35 +16,32 @@ import pers.tpec.framework.tpecsurfaceview.scene.Scene;
  */
 
 public class ObjectPool {
-    private final HashMap<Scene,List<ObjectInScene>> objects=new HashMap<>();
-    private Scene scene=null;
-    private List<ObjectInScene> nowList=new ArrayList<>();
+    private final HashMap<Scene, List<ObjectInScene>> objects = new HashMap<>();
+    private Scene scene = null;
+    private List<ObjectInScene> nowList = new ArrayList<>();
 
-    public ObjectPool add(@NonNull final Scene scene, @NonNull ObjectInScene... object){
-        synchronized (objects){
-            List<ObjectInScene> list=objects.get(scene);
-            if(list==null){
-                list=new ArrayList<>();
+    public ObjectPool add(@NonNull final Scene scene, @NonNull ObjectInScene... object) {
+        synchronized (objects) {
+            List<ObjectInScene> list = objects.get(scene);
+            if (list == null) {
+                list = new ArrayList<>();
             }
-            for(ObjectInScene o:object) {
-                o.bind(scene);
-                list.add(o);
-            }
-            objects.put(scene,list);
+            Collections.addAll(list,object);
+            objects.put(scene, list);
         }
         return this;
     }
 
-    public void clearObjectInScene(@NonNull final Scene scene){
-        synchronized (objects){
-            objects.put(scene,null);
+    public void clearObjectInScene(@NonNull final Scene scene) {
+        synchronized (objects) {
+            objects.put(scene, null);
         }
     }
 
-    public ObjectPool remove(@NonNull final Scene scene, final ObjectInScene object){
-        synchronized (objects){
-            List<ObjectInScene> list=objects.get(scene);
-            if(list!=null){
+    public ObjectPool remove(@NonNull final Scene scene, final ObjectInScene object) {
+        synchronized (objects) {
+            List<ObjectInScene> list = objects.get(scene);
+            if (list != null) {
                 list.remove(object);
             }
         }
@@ -54,33 +50,35 @@ public class ObjectPool {
 
     /**
      * Asynchronously switch the scene
+     *
      * @param scene new Scene
      */
-    public void switchScene(@NonNull final Scene scene){
+    public void switchScene(@NonNull final Scene scene) {
         this.scene = scene;
     }
 
     /**
      * Only for initialization
+     *
      * @param scene
      */
     @Deprecated
-    public void setScene(@NonNull final Scene scene){
-        nowList=objects.get(scene);
-        if(nowList==null){
-            nowList=new ArrayList<>();
+    public void setScene(@NonNull final Scene scene) {
+        nowList = objects.get(scene);
+        if (nowList == null) {
+            nowList = new ArrayList<>();
         }
     }
 
-    public void logic(){
-        if(scene!=null){
+    public void logic() {
+        if (scene != null) {
             synchronized (objects) {
-                nowList=objects.get(scene);
+                nowList = objects.get(scene);
             }
-            if(nowList==null){
-                nowList=new ArrayList<>();
+            if (nowList == null) {
+                nowList = new ArrayList<>();
             }
-            scene=null;
+            scene = null;
         }
         synchronized (objects) {
             for (ObjectInScene o : nowList) {
@@ -89,7 +87,7 @@ public class ObjectPool {
         }
     }
 
-    public void draw(Canvas canvas){
+    public void draw(Canvas canvas) {
         synchronized (objects) {
             for (ObjectInScene o : nowList) {
                 o.draw(canvas);
@@ -100,7 +98,7 @@ public class ObjectPool {
     public boolean onTouch(MotionEvent event) {
         synchronized (objects) {
             for (ObjectInScene o : nowList) {
-                if(o.onTouch(event)){
+                if (o.onTouch(event)) {
                     return true;
                 }
             }

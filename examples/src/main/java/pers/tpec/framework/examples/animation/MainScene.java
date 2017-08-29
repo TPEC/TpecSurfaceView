@@ -22,7 +22,7 @@ public class MainScene extends Scene implements Service, Controller {
 
     public MainScene() {
         AnimationObject ao = new AnimationObject();
-        Animation animation=new Animation(ao);
+        Animation animation = new Animation(ao);
         op.add(this, ao, animation);
         op.setScene(this);
 

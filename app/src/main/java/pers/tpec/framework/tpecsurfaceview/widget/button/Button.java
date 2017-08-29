@@ -1,4 +1,4 @@
-package pers.tpec.framework.tpecsurfaceview.widget;
+package pers.tpec.framework.tpecsurfaceview.widget.button;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 
 import pers.tpec.framework.tpecsurfaceview.controller.motion.ClickCallback;
 import pers.tpec.framework.tpecsurfaceview.controller.motion.MotionBorder;
+import pers.tpec.framework.tpecsurfaceview.widget.ObjectInScene;
 
 /**
  * Created by Tony on 2017/8/24.
@@ -77,7 +78,7 @@ public class Button extends ObjectInScene implements MotionBorder {
 
     @Override
     public void draw(Canvas canvas) {
-        if (isValid() && visible && bmpBg != null) {
+        if (visible && bmpBg != null) {
             if (!bmc.isClickDown()) {
                 canvas.drawBitmap(bmpBg, rectSrc, rectDst, paint);
             } else {
@@ -87,7 +88,7 @@ public class Button extends ObjectInScene implements MotionBorder {
     }
 
     public boolean onTouch(MotionEvent event) {
-        if (isValid() && enabled)
+        if (enabled)
             return bmc.onTouch(event);
         return false;
     }

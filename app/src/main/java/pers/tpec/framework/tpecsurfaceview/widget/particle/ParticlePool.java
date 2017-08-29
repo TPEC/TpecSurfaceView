@@ -19,13 +19,14 @@ public class ParticlePool extends ObjectInScene {
 
     public ParticlePool add(@NonNull final Particle... particle) {
         synchronized (particles) {
-            Collections.addAll(particles,particle);
+            Collections.addAll(particles, particle);
         }
         return this;
     }
 
     /**
      * Remove Particle when it is done.
+     *
      * @param autoRemove
      */
     public void setAutoRemove(boolean autoRemove) {
@@ -58,25 +59,21 @@ public class ParticlePool extends ObjectInScene {
 
     @Override
     public void draw(Canvas canvas) {
-        if (isValid()) {
-            synchronized (particles) {
-                for (Particle p : particles) {
-                    p.draw(canvas);
-                }
+        synchronized (particles) {
+            for (Particle p : particles) {
+                p.draw(canvas);
             }
         }
     }
 
     @Override
     public void logic() {
-        if (isValid()) {
-            synchronized (particles) {
-                for (int i = 0; i < particles.size(); i++) {
-                    particles.get(i).logic();
-                    if (autoRemove && !particles.get(i).isRunning()) {
-                        particles.remove(i);
-                        i--;
-                    }
+        synchronized (particles) {
+            for (int i = 0; i < particles.size(); i++) {
+                particles.get(i).logic();
+                if (autoRemove && !particles.get(i).isRunning()) {
+                    particles.remove(i);
+                    i--;
                 }
             }
         }

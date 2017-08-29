@@ -2,6 +2,7 @@ package pers.tpec.framework.tpecsurfaceview;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
@@ -59,8 +60,8 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
         paintBlack = new Paint();
     }
 
-    final public TpecSurfaceView setScene(final Scene scene) {
-        if(this.scene!=null){
+    final public TpecSurfaceView setScene(@NonNull final Scene scene) {
+        if (this.scene != null) {
             this.scene.setVisible(false);
         }
         this.scene = scene;
@@ -119,8 +120,10 @@ public class TpecSurfaceView extends SurfaceView implements SurfaceHolder.Callba
                 canvas.translate(scaleTranslateX, scaleTranslateY);
                 canvas.scale(scaleWidth, scaleHeight);
 
-                if (scene != null) {
+                if (scene != null && scene.isVisible()) {
                     scene.draw(canvas);
+                }else{
+                    canvas.drawRect(0,0,windowWidth,windowHeight,paintBlack);
                 }
 
                 canvas.restore();

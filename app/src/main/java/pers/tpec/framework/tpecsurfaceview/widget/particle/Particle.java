@@ -49,7 +49,7 @@ public class Particle extends ObjectInScene {
             for (int i = 0; i < amount; i++) {
                 int life_ = (int) ((float) life * (rnd.nextFloat() * 0.45 + 0.8));
                 float a = (float) (rnd.nextFloat() * 2 * Math.PI);
-                float v_=rnd.nextFloat()*v;
+                float v_ = rnd.nextFloat() * v;
                 float vx = (float) (v_ * Math.cos(a));
                 float vy = (float) (v_ * Math.sin(a));
                 units.add(new Unit(life_, radius, x, y, vx, vy));
