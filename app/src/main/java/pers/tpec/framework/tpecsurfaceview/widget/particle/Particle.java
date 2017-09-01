@@ -34,14 +34,7 @@ public abstract class Particle extends ObjectInScene {
         this.countPerFrameRange = countPerFrameRange;
         this.lifeTime = lifeTime;
         this.lifeTimeRange = lifeTimeRange;
-        this.startPathMeasure = new PathMeasure(startPath, true);
-        this.deltaStartPath = deltaStartPath;
-        if (this.startPathMeasure.getLength() == 0) {
-            this.deltaStartPath = 0;
-        }
-        while (this.deltaStartPath > 1) {
-            this.deltaStartPath--;
-        }
+        setStartPath(startPath,deltaStartPath);
         this.velocity = velocity;
         this.velocityRange = velocityRange;
         this.gravityX = gravityX;
@@ -52,6 +45,17 @@ public abstract class Particle extends ObjectInScene {
         this.sizeRange = sizeRange;
         timeLeft = 0;
         running = false;
+    }
+
+    protected void setStartPath(final Path path,final float deltaStartPath){
+        this.startPathMeasure = new PathMeasure(path, true);
+        this.deltaStartPath = deltaStartPath;
+        if (this.startPathMeasure.getLength() == 0) {
+            this.deltaStartPath = 0;
+        }
+        while (this.deltaStartPath > 1) {
+            this.deltaStartPath--;
+        }
     }
 
     @Override

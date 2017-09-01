@@ -17,6 +17,7 @@ import pers.tpec.framework.tpecsurfaceview.widget.ObjectInScene;
  * Created by Tony on 2017/8/28.
  */
 
+@Deprecated
 public class BitmapParticle extends ObjectInScene {
     private static final int RESIZE_LIFETIME = 30;
 

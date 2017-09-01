@@ -64,6 +64,11 @@ public class ColorParticle extends Particle {
         startPathL = 0;
     }
 
+    public ColorParticle setPosition(final float x,final float y){
+        setStartPath(ParticleFactory.getOnePointPath(x,y),0);
+        return this;
+    }
+
     protected void addParticle() {
         Random rnd = new Random();
         float count = rnd.nextFloat() * countPerFrameRange + countPerFrame;
