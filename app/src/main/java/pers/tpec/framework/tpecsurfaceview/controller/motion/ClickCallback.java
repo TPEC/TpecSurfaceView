@@ -5,5 +5,5 @@ package pers.tpec.framework.tpecsurfaceview.controller.motion;
  */
 
 public interface ClickCallback {
-    boolean onClick();
+    boolean onClick(final float x,final float y);
 }

@@ -39,8 +39,8 @@ public class MotionController implements Controller {
     public MotionController setClickCallback(final ClickCallback clickCallback){
         this.callback=new MotionCallback() {
             @Override
-            public boolean onClick() {
-                return clickCallback.onClick();
+            public boolean onClick(final float x,final float y) {
+                return clickCallback.onClick(x,y);
             }
 
             @Override
@@ -84,7 +84,7 @@ public class MotionController implements Controller {
                     double dd=Math.sqrt(Math.pow(event.getX(index)-x0,2)+Math.pow(event.getY(index)-y0,2));
                     if(dd<32) {
                         if (callback != null) {
-                            return callback.onClick();
+                            return callback.onClick(x0,y0);
                         }
                     }
                 }

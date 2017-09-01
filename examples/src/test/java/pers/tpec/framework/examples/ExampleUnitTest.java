@@ -1,5 +1,8 @@
 package pers.tpec.framework.examples;
 
+import android.graphics.Path;
+import android.graphics.PathMeasure;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;

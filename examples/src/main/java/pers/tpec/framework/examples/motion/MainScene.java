@@ -29,7 +29,7 @@ public class MainScene extends Scene implements Service,Controller,MotionBorder 
         rect=new Rect(0,0,300,100);
         mc=new MotionController(this).setCallback(new MotionCallback() {
             @Override
-            public boolean onClick() {
+            public boolean onClick(final float x,final float y) {
                 rect.offset(100,50);
                 return true;
             }

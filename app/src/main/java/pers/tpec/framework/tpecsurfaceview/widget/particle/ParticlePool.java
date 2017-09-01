@@ -25,7 +25,7 @@ public class ParticlePool extends ObjectInScene {
     }
 
     /**
-     * Remove Particle when it is done.
+     * Remove BitmapParticle when it is done.
      *
      * @param autoRemove
      */
@@ -41,7 +41,7 @@ public class ParticlePool extends ObjectInScene {
     public ParticlePool removeDeadParticle() {
         synchronized (particles) {
             for (int i = 0; i < particles.size(); i++) {
-                if (!particles.get(i).isRunning()) {
+                if (!particles.get(i).running) {
                     particles.remove(i);
                     i--;
                 }
@@ -71,7 +71,7 @@ public class ParticlePool extends ObjectInScene {
         synchronized (particles) {
             for (int i = 0; i < particles.size(); i++) {
                 particles.get(i).logic();
-                if (autoRemove && !particles.get(i).isRunning()) {
+                if (autoRemove && !particles.get(i).running) {
                     particles.remove(i);
                     i--;
                 }

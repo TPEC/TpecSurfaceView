@@ -5,13 +5,11 @@ import android.graphics.Color;
 import android.view.MotionEvent;
 
 import pers.tpec.framework.tpecsurfaceview.controller.Controller;
-import pers.tpec.framework.tpecsurfaceview.controller.motion.ClickCallback;
-import pers.tpec.framework.tpecsurfaceview.controller.motion.MotionController;
-import pers.tpec.framework.tpecsurfaceview.controller.motion.RectBorder;
 import pers.tpec.framework.tpecsurfaceview.scene.Scene;
 import pers.tpec.framework.tpecsurfaceview.service.Service;
 import pers.tpec.framework.tpecsurfaceview.widget.ObjectPool;
-import pers.tpec.framework.tpecsurfaceview.widget.particle.Particle;
+import pers.tpec.framework.tpecsurfaceview.widget.particle.BitmapParticle;
+import pers.tpec.framework.tpecsurfaceview.widget.particle.ParticleFactory;
 import pers.tpec.framework.tpecsurfaceview.widget.particle.ParticlePool;
 
 /**
@@ -26,7 +24,7 @@ public class MainScene extends Scene implements Service, Controller {
 
     public MainScene(){
         ParticlePool pp=new ParticlePool();
-        pp.add(new Particle().init(128, 640, 360, 120, 5, Color.WHITE, 7.5f, 0, 0.1f).play());
+        pp.add(ParticleFactory.createFireEffects(60,640,360,5,1).play(-1));
         op.add(this,pp);
         op.setScene(this);
     }
