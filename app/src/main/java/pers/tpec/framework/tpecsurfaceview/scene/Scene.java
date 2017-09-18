@@ -11,6 +11,14 @@ public abstract class Scene {
 
     public abstract void draw(final Canvas canvas);
 
+    public void load(){
+
+    }
+
+    public void unload(){
+
+    }
+
     public final boolean isVisible() {
         return visible;
     }
